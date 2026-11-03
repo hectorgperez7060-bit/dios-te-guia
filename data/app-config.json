@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "city": "Luján",
+  "updatedAt": "2026-11-03",
+  "mapCenter": [-34.5644362, -59.1214713],
+  "walletUrl": null,
+  "telemetryEndpoint": null,
+  "publicRelease": true,
+  "notice": "Prototipo público en validación. Confirmar puestos, cortes y servicios temporales con fuentes oficiales."
+}

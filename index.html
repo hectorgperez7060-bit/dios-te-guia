@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#073a83" />
+    <meta name="description" content="Guía offline para peregrinos: mapa, GPS y servicios esenciales aun sin señal." />
+    <meta name="referrer" content="no-referrer" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; worker-src 'self' blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests" />
+    <link rel="manifest" href="/dios-te-guia/manifest.webmanifest" />
+    <link rel="icon" href="/dios-te-guia/icon-192.png" />
+    <link rel="apple-touch-icon" href="/dios-te-guia/icon-192.png" />
+    <link rel="stylesheet" href="/dios-te-guia/styles.css" />
+    <title>Dios te guía · Luján sin señal</title>
+    <script type="module" crossorigin src="/dios-te-guia/app.js"></script>
+    <link rel="stylesheet" crossorigin href="/dios-te-guia/assets/index.css">
+  </head>
+  <body>
+    <header class="app-header">
+      <img src="/dios-te-guia/icon-192.png" alt="" class="brand-icon" />
+      <div>
+        <strong>Dios te guía</strong>
+        <span>Luján · guía sin señal</span>
+      </div>
+      <button id="installButton" class="header-action" hidden>Instalar</button>
+    </header>
+
+    <main>
+      <section id="view-map" class="view active" aria-labelledby="tab-map">
+        <aside class="validation-notice" role="note">
+          <strong>Prototipo público en validación</strong>
+          <span>Los servicios permanentes provienen de OpenStreetMap. Confirmá puestos, cortes y servicios temporales con fuentes oficiales.</span>
+        </aside>
+        <div class="offline-banner" id="offlineBanner" role="status">
+          <span class="status-dot"></span>
+          <div><strong>Preparando uso sin señal…</strong><small>No cierres la aplicación.</small></div>
+        </div>
+        <div class="map-tools">
+          <label class="search-box">
+            <span aria-hidden="true">⌕</span>
+            <input id="searchInput" type="search" placeholder="Buscar agua, baños, salud…" autocomplete="off" />
+          </label>
+          <button id="locateButton" class="round-button" aria-label="Mostrar mi ubicación" title="Mi ubicación">◎</button>
+        </div>
+        <div id="map" aria-label="Mapa offline de Luján"></div>
+        <div class="map-credit">© OpenStreetMap contributors · ODbL</div>
+        <section id="resultsPanel" class="results-panel" hidden>
+          <div class="panel-handle"></div>
+          <div class="panel-heading">
+            <strong id="resultsTitle">Resultados</strong>
+            <button id="closeResults" aria-label="Cerrar">×</button>
+          </div>
+          <div id="resultsList"></div>
+        </section>
+      </section>
+
+      <section id="view-guide" class="view content-view" aria-labelledby="tab-guide" hidden>
+        <div class="hero-card">
+          <p class="eyebrow">EL JEFE DEL PAPA TE GUÍA</p>
+          <h1>Sin internet,<br />siempre conectado.</h1>
+          <p>Descargá Luján antes de viajar y encontrá servicios esenciales incluso cuando la red esté saturada.</p>
+        </div>
+        <div class="section-title"><h2>Antes de salir</h2><span>4 pasos</span></div>
+        <ol class="checklist">
+          <li><span>1</span><div><strong>Abrí la aplicación con internet</strong><small>Esperá el aviso verde “Lista para usar sin señal”.</small></div></li>
+          <li><span>2</span><div><strong>Permití la ubicación</strong><small>El GPS funciona aunque no haya datos móviles.</small></div></li>
+          <li><span>3</span><div><strong>Cargá el teléfono</strong><small>Si podés, llevá batería externa.</small></div></li>
+          <li><span>4</span><div><strong>Acordá un punto de encuentro</strong><small>La mensajería puede fallar entre multitudes.</small></div></li>
+        </ol>
+        <button id="testOfflineButton" class="primary-button">Comprobar preparación offline</button>
+
+        <div class="section-title"><h2>Tu privacidad</h2></div>
+        <article class="privacy-card">
+          <div class="privacy-icon">⌖</div>
+          <div><strong>Tu ubicación queda en tu teléfono</strong><p>No guardamos recorridos ni solicitamos contactos, cámara o micrófono.</p></div>
+        </article>
+        <label class="consent-row">
+          <div><strong>Ayudar a mejorar</strong><small>Guardar estadísticas anónimas de uso para enviarlas cuando exista un sistema propio.</small></div>
+          <input id="analyticsConsent" type="checkbox" role="switch" />
+        </label>
+        <button id="privacyButton" class="text-button">Leer política de privacidad</button>
+
+        <article class="support-card">
+          <span>♡</span>
+          <div><strong>Ayudanos a guiar a más peregrinos</strong><p>El aporte será voluntario y se procesará fuera de la aplicación mediante una billetera reconocida.</p></div>
+          <button id="donateButton" disabled>Donaciones próximamente</button>
+        </article>
+      </section>
+
+      <section id="view-help" class="view content-view" aria-labelledby="tab-help" hidden>
+        <div class="emergency-header">
+          <p class="eyebrow">AYUDA RÁPIDA</p>
+          <h1>En una emergencia</h1>
+          <p>Las llamadas requieren señal telefónica, pero no internet.</p>
+        </div>
+        <a class="emergency-call primary" href="tel:911"><span>Emergencias</span><strong>911</strong></a>
+        <a class="emergency-call" href="tel:107"><span>Emergencias médicas</span><strong>107</strong></a>
+        <a class="emergency-call" href="tel:100"><span>Bomberos</span><strong>100</strong></a>
+        <article class="safety-card">
+          <h2>Si te separás de tu grupo</h2>
+          <ul>
+            <li>Quedate en un lugar visible y seguro.</li>
+            <li>Dirigite al punto de encuentro acordado.</li>
+            <li>Buscá personal identificado del operativo.</li>
+            <li>No compartas información personal con desconocidos.</li>
+          </ul>
+        </article>
+        <p class="data-warning">Los puestos temporales, cortes y cambios del operativo todavía no están verificados. Confirmalos con fuentes oficiales.</p>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navegación principal">
+      <button id="tab-map" data-view="map" class="active"><span>⌖</span>Mapa</button>
+      <button id="tab-guide" data-view="guide"><span>✦</span>Guía</button>
+      <button id="tab-help" data-view="help"><span>✚</span>Ayuda</button>
+    </nav>
+
+    <dialog id="privacyDialog">
+      <form method="dialog">
+        <button class="dialog-close" aria-label="Cerrar">×</button>
+        <h2>Privacidad simple</h2>
+        <p><strong>No pedimos una cuenta.</strong> El GPS se usa para mostrar tu posición y no se envía a ningún servidor.</p>
+        <p>El mapa, las preferencias y cualquier estadística aceptada se guardan en este dispositivo. Podés borrar todo eliminando los datos del sitio.</p>
+        <p>Las estadísticas están desactivadas por defecto. La aplicación no contiene publicidad ni vende información personal.</p>
+        <button class="primary-button">Entendido</button>
+      </form>
+    </dialog>
+    <dialog id="offlineDialog">
+      <form method="dialog">
+        <button class="dialog-close" aria-label="Cerrar">×</button>
+        <h2 id="offlineDialogTitle">Comprobando…</h2>
+        <p id="offlineDialogText">Estamos verificando el mapa y los archivos esenciales.</p>
+        <button class="primary-button">Cerrar</button>
+      </form>
+    </dialog>
+
+  </body>
+</html>
