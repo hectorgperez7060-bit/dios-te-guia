@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#073a83" />
     <meta name="description" content="Guía offline para peregrinos: mapa, GPS y servicios esenciales aun sin señal." />
     <meta name="referrer" content="no-referrer" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; worker-src 'self' blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob: https://a.basemaps.cartocdn.com; style-src 'self' 'unsafe-inline'; script-src 'self'; worker-src 'self' blob:; connect-src 'self' https://router.project-osrm.org https://routing.openstreetmap.de https://a.basemaps.cartocdn.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests" />
     <link rel="manifest" href="/dios-te-guia/manifest.webmanifest" />
     <link rel="icon" href="/dios-te-guia/icon-192.png" />
     <link rel="apple-touch-icon" href="/dios-te-guia/icon-192.png" />
@@ -22,6 +22,7 @@
         <strong>Dios te guía</strong>
         <span>Luján · guía sin señal</span>
       </div>
+      <span id="connectionChip" class="connection-chip" role="status">Conectando…</span>
       <button id="installButton" class="header-action" hidden>Instalar</button>
     </header>
 
@@ -42,8 +43,15 @@
           </label>
           <button id="locateButton" class="round-button" aria-label="Mostrar mi ubicación" title="Mi ubicación">◎</button>
         </div>
+        <section class="route-launcher" aria-label="Navegación a la Basílica">
+          <button id="routeButton" class="route-main-button"><span>➤</span><strong>Ir a la Basílica</strong><small>Ruta desde donde estás</small></button>
+          <div class="route-modes" role="group" aria-label="Modo de viaje">
+            <button data-profile="driving" class="active">🚗 Auto</button>
+            <button data-profile="walking">🚶 A pie</button>
+          </div>
+        </section>
         <div id="map" aria-label="Mapa offline de Luján"></div>
-        <div class="map-credit">© OpenStreetMap contributors · ODbL</div>
+        <div class="map-credit">© OpenStreetMap contributors · ODbL · mapa online © CARTO</div>
         <section id="resultsPanel" class="results-panel" hidden>
           <div class="panel-handle"></div>
           <div class="panel-heading">
@@ -51,6 +59,11 @@
             <button id="closeResults" aria-label="Cerrar">×</button>
           </div>
           <div id="resultsList"></div>
+        </section>
+        <section id="routePanel" class="route-panel" hidden aria-live="polite">
+          <button id="closeRoute" class="route-close" aria-label="Finalizar navegación">×</button>
+          <div class="route-heading"><span id="routeIcon">↑</span><div><strong id="routeInstruction">Seguí la ruta</strong><small id="routeStreet">Hacia la Basílica de Luján</small></div></div>
+          <div class="route-stats"><strong id="routeDistance">—</strong><span id="routeDuration">—</span><span id="routeNetworkState">Ruta guardada</span></div>
         </section>
       </section>
 
@@ -72,7 +85,7 @@
         <div class="section-title"><h2>Tu privacidad</h2></div>
         <article class="privacy-card">
           <div class="privacy-icon">⌖</div>
-          <div><strong>Tu ubicación queda en tu teléfono</strong><p>No guardamos recorridos ni solicitamos contactos, cámara o micrófono.</p></div>
+          <div><strong>No guardamos tu ubicación</strong><p>El GPS queda en tu teléfono. Solo al pedir una ruta se envían origen y destino al servicio abierto de navegación.</p></div>
         </article>
         <label class="consent-row">
           <div><strong>Ayudar a mejorar</strong><small>Guardar estadísticas anónimas de uso para enviarlas cuando exista un sistema propio.</small></div>
@@ -119,8 +132,8 @@
       <form method="dialog">
         <button class="dialog-close" aria-label="Cerrar">×</button>
         <h2>Privacidad simple</h2>
-        <p><strong>No pedimos una cuenta.</strong> El GPS se usa para mostrar tu posición y no se envía a ningún servidor.</p>
-        <p>El mapa, las preferencias y cualquier estadística aceptada se guardan en este dispositivo. Podés borrar todo eliminando los datos del sitio.</p>
+        <p><strong>No pedimos una cuenta.</strong> El GPS se usa localmente para mostrar tu posición. Cuando tocás “Ir a la Basílica”, las coordenadas de origen y destino se envían al servicio abierto OSRM para calcular la ruta; nosotros no recibimos ni almacenamos ese dato.</p>
+        <p>El mapa, la ruta calculada, las preferencias y cualquier estadística aceptada se guardan en este dispositivo. Podés borrar todo eliminando los datos del sitio.</p>
         <p>Las estadísticas están desactivadas por defecto. La aplicación no contiene publicidad ni vende información personal.</p>
         <button class="primary-button">Entendido</button>
       </form>

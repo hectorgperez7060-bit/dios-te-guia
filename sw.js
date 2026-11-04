@@ -1,5 +1,5 @@
-const CACHE = "dios-te-guia-v3";
-const ESSENTIAL = ["/dios-te-guia/","/dios-te-guia/_headers","/dios-te-guia/app.js","/dios-te-guia/assets/index.css","/dios-te-guia/data/app-config.json","/dios-te-guia/data/lujan.pmtiles","/dios-te-guia/data/services.json","/dios-te-guia/icon-192.png","/dios-te-guia/icon-512.png","/dios-te-guia/logo-horizontal.png","/dios-te-guia/manifest.webmanifest","/dios-te-guia/maplibre-gl-worker.mjs","/dios-te-guia/styles.css"];
+const CACHE = "dios-te-guia-v4";
+const ESSENTIAL = ["/dios-te-guia/","/dios-te-guia/_headers","/dios-te-guia/app.js","/dios-te-guia/assets/index.css","/dios-te-guia/data/app-config.json","/dios-te-guia/data/lujan.pmtiles","/dios-te-guia/data/services.json","/dios-te-guia/fonts/Noto Sans Regular/0-255.pbf","/dios-te-guia/icon-192.png","/dios-te-guia/icon-512.png","/dios-te-guia/logo-horizontal.png","/dios-te-guia/manifest.webmanifest","/dios-te-guia/maplibre-gl-worker.mjs","/dios-te-guia/styles.css"];
 const VERIFIED = {"/dios-te-guia/data/lujan.pmtiles":3103562};
 const BASE_PATH = "/dios-te-guia/";
 
